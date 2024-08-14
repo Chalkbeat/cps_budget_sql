@@ -31,7 +31,7 @@ CREATE TABLE budget_book (
 
 insert_statement = "INSERT INTO budget_book VALUES (%s)" % ", ".join(["?" for x in range(16)])
 
-for y in range(21, 25):
+for y in range(21, 26):
   file_name = "csv/FY%s.csv" % y
   with open(file_name) as input_file:
     print("Loading file " + file_name)
