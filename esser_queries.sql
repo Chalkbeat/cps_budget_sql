@@ -21,7 +21,7 @@ FROM (
     unit,
     unit_name,
     sum(last_ending_budget) AS total
-  FROM budget_book
+  FROM budget
   GROUP BY fiscal_year, unit
   ORDER BY fiscal_year DESC, total DESC
 ) AS everything
@@ -31,7 +31,7 @@ LEFT JOIN (
     unit,
     unit_name,
     IFNULL(SUM(last_ending_budget), 0.0) AS esser
-  FROM budget_book
+  FROM budget
   WHERE fund LIKE "FG370%"
   GROUP BY fiscal_year, unit
 ) AS covid
@@ -52,7 +52,7 @@ FROM (
     unit,
     unit_name,
     sum(last_ending_budget) AS total
-  FROM budget_book
+  FROM budget
   GROUP BY unit
   ORDER BY total DESC
 ) AS everything
@@ -61,7 +61,7 @@ LEFT JOIN (
     unit,
     unit_name,
     IFNULL(SUM(last_ending_budget), 0.0) AS esser
-  FROM budget_book
+  FROM budget
   WHERE fund LIKE "FG370%"
   GROUP BY unit
 ) AS covid
@@ -89,7 +89,7 @@ FROM (
     program,
     program_name,
     sum(last_ending_budget) AS total
-  FROM budget_book
+  FROM budget
   GROUP BY fiscal_year, account, program
   ORDER BY fiscal_year DESC, total DESC
 ) AS everything
@@ -99,7 +99,7 @@ LEFT JOIN (
     account AS ca,
     program AS cp,
     IFNULL(SUM(last_ending_budget), 0.0) AS esser
-  FROM budget_book
+  FROM budget
   WHERE fund LIKE "FG370%"
   GROUP BY fiscal_year, account, program
 ) AS covid
@@ -126,7 +126,7 @@ FROM (
     program,
     program_name,
     sum(last_ending_budget) AS total
-  FROM budget_book
+  FROM budget
   GROUP BY account, program
   ORDER BY total DESC
 ) AS everything
@@ -135,7 +135,7 @@ LEFT JOIN (
     account AS ca,
     program AS cp,
     IFNULL(SUM(last_ending_budget), 0.0) AS esser
-  FROM budget_book
+  FROM budget
   WHERE fund LIKE "FG370%"
   GROUP BY account, program
 ) AS covid
@@ -162,7 +162,7 @@ FROM (
     program_name,
     substring(unit, 0, 3) as prefix,
     sum(last_ending_budget) AS total
-  FROM budget_book
+  FROM budget
   GROUP BY account, program, prefix
   ORDER BY total DESC
 ) AS everything
@@ -172,7 +172,7 @@ LEFT JOIN (
     program AS cp,
     substring(unit, 0, 3) as cu,
     IFNULL(SUM(last_ending_budget), 0.0) AS esser
-  FROM budget_book
+  FROM budget
   WHERE fund LIKE "FG370%"
   GROUP BY ca, cp, cu
 ) AS covid
